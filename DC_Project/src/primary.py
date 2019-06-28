@@ -187,8 +187,10 @@ if __name__ == '__main__':
 	trainData = all_fea.merge(label,on='UID',how='left')
 	trainFeature = trainData.drop(['Tag','UID'],axis=1)
 	trainLabel = trainData.Tag
-	#cv_res = xgbCV(trainFeature, trainLabel, params, 10000)
-	#cv_res['test-SCORE-mean'][-1:]
+	'''
+	cv_res = xgbCV(trainFeature, trainLabel, params, 10000)
+	cv_res['test-SCORE-mean'][-1:]
+	'''
 
 	all_fea_test = trans_fea_test.merge(op_fea_test,on='UID',how='outer')
 	testFeature = sample[['UID']].merge(all_fea_test,on='UID',how='left')
@@ -215,14 +217,14 @@ if __name__ == '__main__':
 		n_jobs=4
 	)
 
-	rand = RandomizedSearchCV(xgbl, param_op, cv=10, scoring='accuracy', random_state=5, iid=False, verbose=10)
+	rand = RandomizedSearchCV(xgbl, param_op, cv=5, n_jobs=3, scoring='accuracy', iid=False, verbose=10)
 	rand.fit(trainFeature, trainLabel)
 
 	print(rand.best_score_)
 	print(rand.best_params_)
 
-	# Make result
 	'''
+	# Make result
 	model, predict = xgbPredict(trainFeature, trainLabel, testFeature, 3000, params)
 
 	sub = pd.DataFrame()

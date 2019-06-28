@@ -1,1 +1,7 @@
 *.csv
+*.pdf
+*.pptx
+*.png
+
+/周报/
+/Final_Project/sample/
