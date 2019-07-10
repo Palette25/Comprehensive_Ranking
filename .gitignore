@@ -1,8 +1,6 @@
 *.csv
 *.png
 *.docx
-*.pptx
-*.pdf
 
 /周报/
 /课件/
